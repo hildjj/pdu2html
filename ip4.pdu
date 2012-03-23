@@ -1,0 +1,13 @@
+4  version
+4  header len
+6  differentiated services
+2  ECN
+16 length
+16 identification
+1  RSV
+1  DF
+1  MF
+13 fragment offset
+32 source IP
+32 destination IP
+*  options

@@ -1,0 +1,19 @@
+16 source port
+16 destination port
+32 sequence number
+32 acknowledgement number (if ACK set)
+4  data offset
+3  reserved<br>0&nbsp;0&nbsp;0
+1  NS
+1  CWR
+1  ECE
+1  URG
+1  ACK
+1  PSH
+1  RST
+1  SYN
+1  FIN
+16 window size
+16 checksum
+16 urgent pointer
+*  options
