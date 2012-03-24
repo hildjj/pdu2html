@@ -1,0 +1,13 @@
+pdu2html turns a list of bitfield (size, name) pairs into an HTML representation
+of that Protocol Data Unit.
+
+Input is a file, formatted with one line per field, with each line containing the
+field size, some space, and the field name.  "*" can be used for the size for
+fields with unknown size.
+
+Example:
+
+4  foo
+12 bar
+16 baz
+*  boo

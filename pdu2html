@@ -14,13 +14,21 @@ def row(cells, tot):
         rowbits = 32
         elip = "<br />..."
 
-    print """    <tr>
-      <th class='octoffset'>%d%s</th>
-      <th class='bitoffset'>%d%s</th>""" % (tot/8, elip, tot, elip)
+    if tot == '*':
+        print """    <tr>
+        <th class='octoffset'>*<br />...</th>
+        <th class='bitoffset'>*<br />...</th>"""
+    else:
+        print """    <tr>
+        <th class='octoffset'>%d%s</th>
+        <th class='bitoffset'>%d%s</th>""" % (tot/8, elip, tot, elip)
+        
     for sz, name in cells:
         if sz == '*':
+            if not name:
+                name = "&nbsp;"
             print "        <td colspan='32'>%s<br />...</td>" % (name,)
-            tot += 32
+            tot = '*'
             rowbits -= 32
         else:
             isz = int(sz)
@@ -29,17 +37,21 @@ def row(cells, tot):
                 print "        <td>%s</td>" % (name,)
                 rowbits -= 1
             elif isz > 32:
+                if not name:
+                    name = "&nbsp;"
                 print "        <td rowspan='%d' colspan='32'>%s</td>" % (isz/32, name)
                 rowbits -= 32
             else:
+                if not name:
+                    name = "&nbsp;"
                 print "        <td colspan='%s'>%s</td>" % (sz, name)
                 rowbits -= isz
             tot += isz
-
+    print "    </tr>"
     while rowbits > 0:
         print """    <tr>
-      <th class='octoffset'>%d%s</th>
-      <th class='bitoffset'>%d%s</th>
+        <th class='octoffset'>%d%s</th>
+        <th class='bitoffset'>%d%s</th>
     </tr>""" % (tot/8, elip, tot, elip)
         rowbits -= 32
         tot += 32
