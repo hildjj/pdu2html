@@ -1,0 +1,52 @@
+body {
+    font-family: sans-serif;
+}
+
+table.pdu {
+  margin: 1em 1em 1em 0;
+  background-color: #F9F9F9;
+  border: 1px #AAA solid;
+  border-collapse: collapse;
+  color: black;
+  text-align: center;
+  border-spacing: 2px;
+}
+table.pdu th {
+    background-color: #F2F2F2;
+    text-align: center;
+    border: 1px #AAA solid;
+    padding: 0.2em;
+}
+table.pdu td {
+    border: 1px #AAA solid;
+    padding: 0.2em;
+}
+.bit {
+    font-family: monospace;
+    font-size:10pt; 
+    line-height:1;
+}
+table.pdu th.octet {
+    font-family: monospace;
+}
+table.pdu th.bitoffset {
+    font-family: monospace;
+    text-align: right;
+    padding-right: 10px;
+}
+table.pdu th.octoffset {
+    font-family: monospace;
+    text-align: right;
+    padding-right: 10px;
+}
+#octetrow {
+    border-left: none;
+}
+#octetcol {
+    border-top: none;
+}
+#offsets {
+    border: none;
+    font-style: italic;
+    font-weight: normal;
+}

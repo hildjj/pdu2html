@@ -1,146 +1,109 @@
 #!/usr/bin/env python
 
-import argparse
-import os.path
 import re
-
-parser = argparse.ArgumentParser(description='pdu2html')
-parser.add_argument('files', metavar='PDU_FILE', nargs='+',
-                    help='Files to translate to html')
-
-args = parser.parse_args()
+import sys
 
 bit_re = re.compile("^\s*([0-9]+|\*)\s+(.*)$")
 
-for fn in args.files:
-	f = open(fn)
-	tot = 0
-	print """
+def row(cells, tot):
+    # cells will have a list of (size, name) tuples that add to 32 or more bits, 
+    # unless it is the last line
+    elip = ""
+    rowbits = sum([int(s) for s,n in cells if s != '*'])
+    if rowbits == 0:
+        rowbits = 32
+        elip = "<br />..."
+
+    print """    <tr>
+      <th class='octoffset'>%d%s</th>
+      <th class='bitoffset'>%d%s</th>""" % (tot/8, elip, tot, elip)
+    for sz, name in cells:
+        if sz == '*':
+            print "        <td colspan='32'>%s<br />...</td>" % (name,)
+            tot += 32
+            rowbits -= 32
+        else:
+            isz = int(sz)
+            if isz == 1:
+                name = '<br />'.join(list(name))
+                print "        <td>%s</td>" % (name,)
+                rowbits -= 1
+            elif isz > 32:
+                print "        <td rowspan='%d' colspan='32'>%s</td>" % (isz/32, name)
+                rowbits -= 32
+            else:
+                print "        <td colspan='%s'>%s</td>" % (sz, name)
+                rowbits -= isz
+            tot += isz
+
+    while rowbits > 0:
+        print """    <tr>
+      <th class='octoffset'>%d%s</th>
+      <th class='bitoffset'>%d%s</th>
+    </tr>""" % (tot/8, elip, tot, elip)
+        rowbits -= 32
+        tot += 32
+    return tot
+
+for fn in sys.argv[1:]:
+    f = open(fn)
+    print """
 <!DOCTYPE html>
 <html>
 <head>
 <title>%s</title>
-<style type="text/css">
-body {
-	font-family: sans-serif;
-}
-table.pdu {
-  margin: 1em 1em 1em 0;
-  background-color: #F9F9F9;
-  border: 1px #AAA solid;
-  border-collapse: collapse;
-  color: black;
-  text-align: center;
-  border-spacing: 2px;
-}
-table.pdu th {
-	background-color: #F2F2F2;
-	text-align: center;
-	border: 1px #AAA solid;
-    padding: 0.2em;
-}
-table.pdu td {
-	border: 1px #AAA solid;
-	padding: 0.2em;
-}
-.bit {
-	font-family: monospace;
-	font-size:10pt; 
-	line-height:1;
-}
-.bitoffset {
-	font-family: monospace;
-}
-.byteoffset {
-	font-family: monospace;
-}
-#octetrow {
-	border-left: none;
-}
-#octetcol {
-	border-top: none;
-}
-#offsets {
-	border: none;
-	font-style: italic;
-}
-</style>
+<link rel="stylesheet" type="text/css" href="styles.css">
 </head>
 <body>
 <table class='pdu'>
-  <body>
+  <tbody>
     <tr>
-		<th id='offsets'>Offsets</th>
-		<th id='octetrow'>Octet</th>
-		<th colspan="8">0</th>
-		<th colspan="8">1</th>
-		<th colspan="8">2</th>
-		<th colspan="8">3</th>
-	</tr>
-	<tr>
-		<th id='octetcol'>Octet</th>
-		<th>Bit</th>
-		<th class='bit'>&#160;0</th>
-		<th class='bit'>&#160;1</th>
-		<th class='bit'>&#160;2</th>
-		<th class='bit'>&#160;3</th>
-		<th class='bit'>&#160;4</th>
-		<th class='bit'>&#160;5</th>
-		<th class='bit'>&#160;6</th>
-		<th class='bit'>&#160;7</th>
-		<th class='bit'>&#160;8</th>
-		<th class='bit'>&#160;9</th>
-		<th class='bit'>10</th>
-		<th class='bit'>11</th>
-		<th class='bit'>12</th>
-		<th class='bit'>13</th>
-		<th class='bit'>14</th>
-		<th class='bit'>15</th>
-		<th class='bit'>16</th>
-		<th class='bit'>17</th>
-		<th class='bit'>18</th>
-		<th class='bit'>19</th>
-		<th class='bit'>20</th>
-		<th class='bit'>21</th>
-		<th class='bit'>22</th>
-		<th class='bit'>23</th>
-		<th class='bit'>24</th>
-		<th class='bit'>25</th>
-		<th class='bit'>26</th>
-		<th class='bit'>27</th>
-		<th class='bit'>28</th>
-		<th class='bit'>29</th>
-		<th class='bit'>30</th>
-		<th class='bit'>31</th>
-	</tr>
-	<tr>
-		<th class='byteoffset'>0</th>
-		<th class='bitoffset'>&#160; 0</th>""" % (fn,)
-	for ln in f.readlines():
-		m = bit_re.search(ln)
-		if m:
-			(sz, name) = m.groups()
-			cols = sz
-			if sz == "1":
-				name = '<br>'.join(list(name))
-			elif sz == "*":
-				cols = "32"
-			print "		<td colspan='%s'>%s</td>" % (cols, name)
-			if sz == '*':
-				tot = '...'
-			else:
-				tot += int(sz)
-				if tot % 32 == 0:
-					print """
-	</tr>
-	<tr>
-		<th class='byteoffset'>%d</th>
-		<th class='bitoffset'>&#160;%d</th>""" % (tot/8, tot)
-			
-	print """
-	</tr>	
+        <th id='offsets'>Offsets</th>
+        <th id='octetrow'>Octet</th>
+        <th class='octet' colspan="8">0</th>
+        <th class='octet' colspan="8">1</th>
+        <th class='octet' colspan="8">2</th>
+        <th class='octet' colspan="8">3</th>
+    </tr>
+    <tr>
+        <th id='octetcol'>Octet</th>
+        <th>Bit</th>
+        <th class='bit'>&#xA0;0</th><th class='bit'>&#xA0;1</th><th class='bit'>&#xA0;2</th><th class='bit'>&#xA0;3</th>
+        <th class='bit'>&#xA0;4</th><th class='bit'>&#xA0;5</th><th class='bit'>&#xA0;6</th><th class='bit'>&#xA0;7</th>
+        <th class='bit'>&#xA0;8</th><th class='bit'>&#xA0;9</th><th class='bit'>10</th><th class='bit'>11</th>
+        <th class='bit'>12</th><th class='bit'>13</th><th class='bit'>14</th><th class='bit'>15</th>
+        <th class='bit'>16</th><th class='bit'>17</th><th class='bit'>18</th><th class='bit'>19</th>
+        <th class='bit'>20</th><th class='bit'>21</th><th class='bit'>22</th><th class='bit'>23</th>
+        <th class='bit'>24</th><th class='bit'>25</th><th class='bit'>26</th><th class='bit'>27</th>
+        <th class='bit'>28</th><th class='bit'>29</th><th class='bit'>30</th><th class='bit'>31</th>
+    </tr>""" % (fn,)
+
+    tot = 0
+    rowbits = 0
+    nextrow = []
+    for ln in f.readlines():
+        m = bit_re.search(ln)
+        if not m: continue
+
+        (sz, name) = m.groups()
+        nextrow.append((sz, name))
+        if sz == '*':
+            tot = row(nextrow, tot)
+            nextrow = []
+            rowbits = 0
+        else:
+             rowbits += int(sz)
+             if rowbits >= 32:
+                tot = row(nextrow, tot)
+                nextrow = []
+                rowbits = 0
+
+    if nextrow:
+        tot = row(nextrow, tot)
+            
+    print """
   </tbody>
 </table>
 </body>
 </html>"""
-	f.close()
+    f.close()
