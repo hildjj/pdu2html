@@ -1,0 +1,7 @@
+1 0
+31 Stream-ID
+6  RSV
+1  CMP
+1  FIN
+24 Length
+*  Data
