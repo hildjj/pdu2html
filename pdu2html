@@ -16,12 +16,12 @@ def row(cells, tot):
 
     if tot == '*':
         print """    <tr>
-        <th class='code'>*<br />...</th>
-        <th class='code'>*<br />...</th>"""
+        <th class='pdu-offset'>*<br />...</th>
+        <th class='pdu-offset'>*<br />...</th>"""
     else:
         print """    <tr>
-        <th class='code'>%d%s</th>
-        <th class='code'>%d%s</th>""" % (tot/8, elip, tot, elip)
+        <th class='pdu-offset'>%d%s</th>
+        <th class='pdu-offset'>%d%s</th>""" % (tot/8, elip, tot, elip)
         
     for sz, name in cells:
         if sz == '*':
@@ -71,23 +71,23 @@ for fn in sys.argv[1:]:
   <tbody>
     <tr>
         <th class='pdu-offsets'>Offsets</th>
-        <th class='pdu-octet-row'>Octet</th>
-        <th class='code' colspan="8">0</th>
-        <th class='code' colspan="8">1</th>
-        <th class='code' colspan="8">2</th>
-        <th class='code' colspan="8">3</th>
+        <th class='pdu-head'>Octet</th>
+        <th colspan="8">0</th>
+        <th colspan="8">1</th>
+        <th colspan="8">2</th>
+        <th colspan="8">3</th>
     </tr>
     <tr class='pdu-bits'>
-        <th class='pdu-octet-col'>Octet</th>
-        <th>Bit</th>
-        <th class='code'>&#xA0;0</th><th class='code'>&#xA0;1</th><th class='code'>&#xA0;2</th><th class='code'>&#xA0;3</th>
-        <th class='code'>&#xA0;4</th><th class='code'>&#xA0;5</th><th class='code'>&#xA0;6</th><th class='code'>&#xA0;7</th>
-        <th class='code'>&#xA0;8</th><th class='code'>&#xA0;9</th><th class='code'>10</th><th class='code'>11</th>
-        <th class='code'>12</th><th class='code'>13</th><th class='code'>14</th><th class='code'>15</th>
-        <th class='code'>16</th><th class='code'>17</th><th class='code'>18</th><th class='code'>19</th>
-        <th class='code'>20</th><th class='code'>21</th><th class='code'>22</th><th class='code'>23</th>
-        <th class='code'>24</th><th class='code'>25</th><th class='code'>26</th><th class='code'>27</th>
-        <th class='code'>28</th><th class='code'>29</th><th class='code'>30</th><th class='code'>31</th>
+        <th class='pdu-head'>Octet</th>
+        <th class='pdu-head'>Bit</th>
+        <th>&#xA0;0</th><th>&#xA0;1</th><th>&#xA0;2</th><th>&#xA0;3</th>
+        <th>&#xA0;4</th><th>&#xA0;5</th><th>&#xA0;6</th><th>&#xA0;7</th>
+        <th>&#xA0;8</th><th>&#xA0;9</th><th>10</th><th>11</th>
+        <th>12</th><th>13</th><th>14</th><th>15</th>
+        <th>16</th><th>17</th><th>18</th><th>19</th>
+        <th>20</th><th>21</th><th>22</th><th>23</th>
+        <th>24</th><th>25</th><th>26</th><th>27</th>
+        <th>28</th><th>29</th><th>30</th><th>31</th>
     </tr>""" % (fn,)
 
     tot = 0

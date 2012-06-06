@@ -2,13 +2,6 @@
 body {
     font-family: sans-serif;
 }
-
-.code {
-  background-color: rgba(0, 0, 0, 0.05);
-  font-family: 'Lucida Console', Monaco, monospace;
-  font-size: 90%;
-  line-height: 1.15em;
-}
 table {
   border-collapse: collapse;
 }
@@ -28,11 +21,21 @@ table.pdu {
 table.pdu th, table.pdu td {
     padding: 0.2em;
 }
-.pdu-offset {
+table.pdu th {
     text-align: right;
     padding-right: 5px;
+    font-family: Monaco, 'Lucida Console', monospace;
+    font-size: 80%;
+}
+table.pdu th.pdu-head {
+    text-align: center;
+    font-family: sans-serif;
+    background-color: rgba(0, 0, 0, 0.05);
 }
 .pdu-offsets {
+    font-family: sans-serif;
     font-style: italic;
     font-weight: normal;
+    background-color: #fff;
+    border: none;
 }
