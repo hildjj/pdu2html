@@ -1,52 +1,38 @@
+
 body {
     font-family: sans-serif;
 }
 
-table.pdu {
-  margin: 1em 1em 1em 0;
-  background-color: #F9F9F9;
-  border: 1px #AAA solid;
+.code {
+  background-color: rgba(0, 0, 0, 0.05);
+  font-family: 'Lucida Console', Monaco, monospace;
+  font-size: 90%;
+  line-height: 1.15em;
+}
+table {
   border-collapse: collapse;
-  color: black;
+}
+th {
+  border: solid thin;
   text-align: center;
-  border-spacing: 2px;
+  background-color: #ccc;
 }
-table.pdu th {
-    background-color: #F2F2F2;
-    text-align: center;
-    border: 1px #AAA solid;
+td {
+  border: solid thin;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+table.pdu {
+  text-align: center;
+}
+table.pdu th, table.pdu td {
     padding: 0.2em;
 }
-table.pdu td {
-    border: 1px #AAA solid;
-    padding: 0.2em;
-}
-.bit {
-    font-family: monospace;
-    font-size:10pt; 
-    line-height:1;
-}
-table.pdu th.octet {
-    font-family: monospace;
-}
-table.pdu th.bitoffset {
-    font-family: monospace;
+.pdu-offset {
     text-align: right;
-    padding-right: 10px;
+    padding-right: 5px;
 }
-table.pdu th.octoffset {
-    font-family: monospace;
-    text-align: right;
-    padding-right: 10px;
-}
-#octetrow {
-    border-left: none;
-}
-#octetcol {
-    border-top: none;
-}
-#offsets {
-    border: none;
+.pdu-offsets {
     font-style: italic;
     font-weight: normal;
 }
