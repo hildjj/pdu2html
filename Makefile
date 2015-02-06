@@ -1,13 +1,13 @@
 .SUFFIXES: .html .pdu
-.PHONY: clean all 
+.PHONY: clean all
 
-SRC=$(wildcard *.pdu)
+SRC=$(wildcard examples/*.pdu)
 HTML=$(SRC:.pdu=.html)
 
 all: $(HTML)
 
 clean:
-	$(RM) *.html
+	$(RM) examples/*.html
 
 %.html: %.pdu pdu2html
 	./pdu2html $< > $@

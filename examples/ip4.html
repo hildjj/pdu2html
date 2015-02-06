@@ -2,35 +2,38 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>ip4.pdu</title>
+<title>examples/ip4.pdu</title>
 <link rel="stylesheet" type="text/css" href="styles.css">
 </head>
 <body>
 <table class='pdu'>
+  <thead>
+    <tr>
+      <th>Offsets</th>
+      <th>Octet</th>
+      <th colspan="8">0</th>
+      <th colspan="8">1</th>
+      <th colspan="8">2</th>
+      <th colspan="8">3</th>
+    </tr>
+    <tr>
+      <th>Octet</th>
+      <th>Bit</th>
+      <th>&#xA0;0</th><th>&#xA0;1</th><th>&#xA0;2</th><th>&#xA0;3</th>
+      <th>&#xA0;4</th><th>&#xA0;5</th><th>&#xA0;6</th><th>&#xA0;7</th>
+      <th>&#xA0;8</th><th>&#xA0;9</th><th>10</th><th>11</th>
+      <th>12</th><th>13</th><th>14</th><th>15</th>
+      <th>16</th><th>17</th><th>18</th><th>19</th>
+      <th>20</th><th>21</th><th>22</th><th>23</th>
+      <th>24</th><th>25</th><th>26</th><th>27</th>
+      <th>28</th><th>29</th><th>30</th><th>31</th>
+    </tr>
+  </thead>
   <tbody>
+
     <tr>
-        <th class='pdu-offsets'>Offsets</th>
-        <th class='pdu-head'>Octet</th>
-        <th colspan="8">0</th>
-        <th colspan="8">1</th>
-        <th colspan="8">2</th>
-        <th colspan="8">3</th>
-    </tr>
-    <tr class='pdu-bits'>
-        <th class='pdu-head'>Octet</th>
-        <th class='pdu-head'>Bit</th>
-        <th>&#xA0;0</th><th>&#xA0;1</th><th>&#xA0;2</th><th>&#xA0;3</th>
-        <th>&#xA0;4</th><th>&#xA0;5</th><th>&#xA0;6</th><th>&#xA0;7</th>
-        <th>&#xA0;8</th><th>&#xA0;9</th><th>10</th><th>11</th>
-        <th>12</th><th>13</th><th>14</th><th>15</th>
-        <th>16</th><th>17</th><th>18</th><th>19</th>
-        <th>20</th><th>21</th><th>22</th><th>23</th>
-        <th>24</th><th>25</th><th>26</th><th>27</th>
-        <th>28</th><th>29</th><th>30</th><th>31</th>
-    </tr>
-    <tr>
-        <th class='pdu-offset'>0</th>
-        <th class='pdu-offset'>0</th>
+        <th>0</th>
+        <th>0</th>
         <td colspan='4'>version</td>
         <td colspan='4'>header len</td>
         <td colspan='6'>differentiated services</td>
@@ -38,8 +41,8 @@
         <td colspan='16'>length</td>
     </tr>
     <tr>
-        <th class='pdu-offset'>4</th>
-        <th class='pdu-offset'>32</th>
+        <th>4</th>
+        <th>32</th>
         <td colspan='16'>identification</td>
         <td>R<br />S<br />V</td>
         <td>D<br />F</td>
@@ -47,18 +50,18 @@
         <td colspan='13'>fragment offset</td>
     </tr>
     <tr>
-        <th class='pdu-offset'>8</th>
-        <th class='pdu-offset'>64</th>
+        <th>8</th>
+        <th>64</th>
         <td colspan='32'>source IP</td>
     </tr>
     <tr>
-        <th class='pdu-offset'>12</th>
-        <th class='pdu-offset'>96</th>
+        <th>12</th>
+        <th>96</th>
         <td colspan='32'>destination IP</td>
     </tr>
     <tr>
-        <th class='pdu-offset'>16<br />...</th>
-        <th class='pdu-offset'>128<br />...</th>
+        <th>16<br />...</th>
+        <th>128<br />...</th>
         <td colspan='32'>options<br />...</td>
     </tr>
 
