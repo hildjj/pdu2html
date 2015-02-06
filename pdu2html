@@ -6,7 +6,7 @@ import sys
 bit_re = re.compile("^\s*([0-9]+|\*)\s+(.*)$")
 
 def row(cells, tot):
-    # cells will have a list of (size, name) tuples that add to 32 or more bits, 
+    # cells will have a list of (size, name) tuples that add to 32 or more bits,
     # unless it is the last line
     elip = ""
     rowbits = sum([int(s) for s,n in cells if s != '*'])
@@ -16,13 +16,13 @@ def row(cells, tot):
 
     if tot == '*':
         print """    <tr>
-        <th class='pdu-offset'>*<br />...</th>
-        <th class='pdu-offset'>*<br />...</th>"""
+        <th>*<br />...</th>
+        <th>*<br />...</th>"""
     else:
         print """    <tr>
-        <th class='pdu-offset'>%d%s</th>
-        <th class='pdu-offset'>%d%s</th>""" % (tot/8, elip, tot, elip)
-        
+        <th>%d%s</th>
+        <th>%d%s</th>""" % (tot/8, elip, tot, elip)
+
     for sz, name in cells:
         if sz == '*':
             if not name:
@@ -50,8 +50,8 @@ def row(cells, tot):
     print "    </tr>"
     while rowbits > 0:
         print """    <tr>
-        <th class='pdu-offset'>%d%s</th>
-        <th class='pdu-offset'>%d%s</th>
+        <th>%d%s</th>
+        <th>%d%s</th>
     </tr>""" % (tot/8, elip, tot, elip)
         rowbits -= 32
         tot += 32
@@ -68,27 +68,30 @@ for fn in sys.argv[1:]:
 </head>
 <body>
 <table class='pdu'>
-  <tbody>
+  <thead>
     <tr>
-        <th class='pdu-offsets'>Offsets</th>
-        <th class='pdu-head'>Octet</th>
-        <th colspan="8">0</th>
-        <th colspan="8">1</th>
-        <th colspan="8">2</th>
-        <th colspan="8">3</th>
+      <th>Offsets</th>
+      <th>Octet</th>
+      <th colspan="8">0</th>
+      <th colspan="8">1</th>
+      <th colspan="8">2</th>
+      <th colspan="8">3</th>
     </tr>
-    <tr class='pdu-bits'>
-        <th class='pdu-head'>Octet</th>
-        <th class='pdu-head'>Bit</th>
-        <th>&#xA0;0</th><th>&#xA0;1</th><th>&#xA0;2</th><th>&#xA0;3</th>
-        <th>&#xA0;4</th><th>&#xA0;5</th><th>&#xA0;6</th><th>&#xA0;7</th>
-        <th>&#xA0;8</th><th>&#xA0;9</th><th>10</th><th>11</th>
-        <th>12</th><th>13</th><th>14</th><th>15</th>
-        <th>16</th><th>17</th><th>18</th><th>19</th>
-        <th>20</th><th>21</th><th>22</th><th>23</th>
-        <th>24</th><th>25</th><th>26</th><th>27</th>
-        <th>28</th><th>29</th><th>30</th><th>31</th>
-    </tr>""" % (fn,)
+    <tr>
+      <th>Octet</th>
+      <th>Bit</th>
+      <th>&#xA0;0</th><th>&#xA0;1</th><th>&#xA0;2</th><th>&#xA0;3</th>
+      <th>&#xA0;4</th><th>&#xA0;5</th><th>&#xA0;6</th><th>&#xA0;7</th>
+      <th>&#xA0;8</th><th>&#xA0;9</th><th>10</th><th>11</th>
+      <th>12</th><th>13</th><th>14</th><th>15</th>
+      <th>16</th><th>17</th><th>18</th><th>19</th>
+      <th>20</th><th>21</th><th>22</th><th>23</th>
+      <th>24</th><th>25</th><th>26</th><th>27</th>
+      <th>28</th><th>29</th><th>30</th><th>31</th>
+    </tr>
+  </thead>
+  <tbody>
+""" % (fn,)
 
     tot = 0
     rowbits = 0
@@ -112,7 +115,7 @@ for fn in sys.argv[1:]:
 
     if nextrow:
         tot = row(nextrow, tot)
-            
+
     print """
   </tbody>
 </table>
